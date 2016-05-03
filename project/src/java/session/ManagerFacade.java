@@ -4,6 +4,7 @@ import entities.Manager;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,4 +25,9 @@ public class ManagerFacade extends AbstractFacade<Manager> {
         super(Manager.class);
     }
     
+    public Manager getManagerByPersonId(Object personId){
+        Query q = em.createNamedQuery("Manager.findByPersonId", Manager.class);
+        q.setParameter("personId", personId);
+        return (Manager)q.getSingleResult();
+    }
 }

@@ -4,6 +4,7 @@ import entities.Coach;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,4 +25,9 @@ public class CoachFacade extends AbstractFacade<Coach> {
         super(Coach.class);
     }
     
+    public Coach getCoachByPersonId(Object personId){
+        Query q = em.createNamedQuery("Coach.findByPersonId", Coach.class);
+        q.setParameter("personId", personId);
+        return (Coach)q.getSingleResult();
+    }
 }

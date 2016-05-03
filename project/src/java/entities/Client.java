@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,7 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -26,13 +28,14 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c"),
     @NamedQuery(name = "Client.findById", query = "SELECT c FROM Client c WHERE c.id = :id"),
-    @NamedQuery(name = "Client.findByBirthdate", query = "SELECT c FROM Client c WHERE c.birthdate = :birthdate")})
+    @NamedQuery(name = "Client.findByBirthdate", query = "SELECT c FROM Client c WHERE c.birthdate = :birthdate"),
+    @NamedQuery(name = "Client.findByPersonId", query = "SELECT c FROM Client c WHERE c.personId.id = :personId")})
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_client")
     @Column(name = "ID")
     private Integer id;
     @Column(name = "BIRTHDATE")
@@ -45,7 +48,7 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "clientId")
     private List<Application> applicationList;
     @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Person personId;
 
     public Client() {

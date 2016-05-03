@@ -4,6 +4,7 @@ import entities.Client;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,4 +25,9 @@ public class ClientFacade extends AbstractFacade<Client> {
         super(Client.class);
     }
     
+    public Client getClientByPersonId(Object personId){
+        Query q = em.createNamedQuery("Client.findByPersonId", Client.class);
+        q.setParameter("personId", personId);
+        return (Client)q.getSingleResult();
+    }
 }

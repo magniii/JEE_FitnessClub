@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,13 +22,14 @@ import javax.validation.constraints.NotNull;
 @Table(name = "MANAGER")
 @NamedQueries({
     @NamedQuery(name = "Manager.findAll", query = "SELECT m FROM Manager m"),
-    @NamedQuery(name = "Manager.findById", query = "SELECT m FROM Manager m WHERE m.id = :id")})
+    @NamedQuery(name = "Manager.findById", query = "SELECT m FROM Manager m WHERE m.id = :id"),
+    @NamedQuery(name = "Manager.findByPersonId", query = "SELECT m FROM Manager m WHERE m.personId.id = :personId")})
 public class Manager implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_manager")
     @Column(name = "ID")
     private Integer id;
     @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID")

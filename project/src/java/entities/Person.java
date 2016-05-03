@@ -5,12 +5,13 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -31,7 +32,7 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_person")
     @Column(name = "ID")
     private Integer id;
     @Size(max = 10)
@@ -60,6 +61,13 @@ public class Person implements Serializable {
 
     public Person(Integer id) {
         this.id = id;
+    }
+
+    public Person(String forname, String surname, String login, String password) {
+        this.forname = forname;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
     }
 
     public Integer getId() {

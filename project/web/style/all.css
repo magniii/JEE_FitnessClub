@@ -1,20 +1,100 @@
-body {
-    background: lightblue;
+* {
+    font-family: Arial, sans;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
 }
 
-#authBlock {
-    background: lightyellow;
-    width: 300px;
+#container {
+    /*margin: 0 auto;*/
+    width: 500px;  /* Ancho del contenedor */
     height: 200px;
-    position:absolute;
+    position: absolute;
     top: 50%;
     left: 50%;
-    border: 2px solid blue;
-    text-align: center;
-    margin: -100px 0px 0px -150px;
+    margin: -160px 0px 0px -250px;
 }
 
-#registerBlock {
+#container input {
+    height: 2.5em;
+    visibility: visible;
+}
+
+#container label {
+    background: #f9f9f9;  /* Fondo de las pestañas */
+    border-radius: .25em .25em 0 0;
+    color: #888;  /* Color del texto de las pestañas */
+    cursor: pointer;
+    display: block;
+    float: left;
+    font-size: 1em;  /* Tamaño del texto de las pestañas */
+    height: 2.5em;
+    line-height: 2.5em;
+    margin-right: .25em;
+    padding: 0 1.5em;
+    text-align: center;
+}
+
+#container input:hover + label {
+    background: #ddd;  /* Fondo de las pestañas al pasar el cursor por encima */
+    color: #666;  /* Color del texto de las pestañas al pasar el cursor por encima */
+}
+
+#container input:checked + label {
+    background: #f1f1f1;  /* Fondo de las pestañas al presionar */
+    color: #444; /* Color de las pestañas al presionar */
+    position: relative;
+    z-index: 6;
+}
+
+#content {
+    background: #f1f1f1;  /* Fondo del contenido */
+    border-radius: 0 .25em .25em .25em;
+    min-height: 20em;  /* Alto del contenido */
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+#content div {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1.5em;
+    position: absolute;
+    z-index: -100;
+    text-align: center;
+}
+
+#container input#tab-client:checked ~ #content #content-client,
+#container input#tab-manager:checked ~ #content #content-manager,
+#container input#tab-doctor:checked ~ #content #content-doctor,
+#container input#tab-coach:checked ~ #content #content-coach{
+    opacity: 1;
+    z-index: 100;
+}
+
+input.visible {
+  visibility: visible !important;
+}
+
+input#tab-client,
+input#tab-coach,
+input#tab-doctor,
+input#tab-manager{
+    visibility: hidden;
+}
+
+#regdiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 100px 0px 0px -10px;
+}
+
+/*#registerBlock {
     background: lightyellow;
     width: 300px;
     height: 300px;
@@ -25,3 +105,15 @@ body {
     text-align: center;
     margin: -150px 0px 0px -150px;
 }
+
+#clientBlock {
+    background: lightyellow;
+    width: 300px;
+    height: 300px;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    border: 2px solid blue;
+    text-align: left;
+    margin: -150px 0px 0px -150px;
+}*/

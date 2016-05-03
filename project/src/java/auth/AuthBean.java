@@ -1,9 +1,13 @@
 package auth;
 
+import entities.Client;
 import entities.Person;
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import session.ClientFacade;
 import session.CoachFacade;
 import session.DoctorFacade;
@@ -14,24 +18,30 @@ import session.PersonFacade;
  *
  * @author magniii
  */
+@ManagedBean
 @SessionScoped
-public class AuthBean implements Serializable{
+public abstract class AuthBean implements Serializable{
 
     @EJB
     private PersonFacade pf;
-    @EJB
-    private ManagerFacade mf;
-    @EJB
-    private DoctorFacade df;
-    @EJB
-    private CoachFacade cof;
-    @EJB
-    private ClientFacade cf;
     
-    private String login = "";
-    private String password = "";
-    private boolean loggedIn = false;
+    protected String usertype = "";
+    protected String login = "";
+    protected String password = "";
+    protected boolean loggedIn = false;
+    protected Person currPerson;
 
+    public AuthBean() {
+    }
+
+    public String getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(String usertype) {
+        this.usertype = usertype;
+    }
+    
     public String getLogin() {
         return login;
     }
@@ -52,46 +62,32 @@ public class AuthBean implements Serializable{
         return loggedIn;
     }
 
-    public void setIsLoggedIn(boolean isLoggedIn) {
+    public void setLoggedIn(boolean isLoggedIn) {
         this.loggedIn = isLoggedIn;
     }
     
     public boolean checkAuth(){
-        if(!isLoggedIn()){
-            return (authorize() != null);
+        return isLoggedIn();
+    }
+    
+    public Person getCurrPerson() {
+        return currPerson;
+    }
+
+    public void setCurrPerson(Person currPerson) {
+        this.currPerson = currPerson;
+    }
+    
+    public String doAuth(){
+        currPerson = pf.getPerson(login, password);
+        
+        if(currPerson == null){
+            FacesContext.getCurrentInstance().addMessage("authBlock", new FacesMessage("Incorrect login or password!"));
+            return null;
         }else{
-            return true;
+            return authorize(currPerson.getId());
         }
     }
     
-    public Object authorize(){
-        Person p = pf.getPerson(getLogin(), getPassword());
-        Object result;
-        
-        if(p == null){
-            return null;
-        }else{
-            result = cf.find(p.getId());
-            if(result != null){
-                return result;
-            }
-            
-            result = mf.find(p.getId());
-            if(result != null){
-                return result;
-            }
-            
-            result = cof.find(p.getId());
-            if(result != null){
-                return result;
-            }
-            
-            result = df.find(p.getId());
-            if(result != null){
-                return result;
-            }
-            
-            return null;
-        }
-    }
+    protected abstract String authorize(Integer personId);
 }
