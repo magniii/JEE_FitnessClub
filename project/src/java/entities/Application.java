@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,7 +15,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -26,13 +27,14 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Application.findAll", query = "SELECT a FROM Application a"),
     @NamedQuery(name = "Application.findById", query = "SELECT a FROM Application a WHERE a.id = :id"),
     @NamedQuery(name = "Application.findByCreationDate", query = "SELECT a FROM Application a WHERE a.creationDate = :creationDate"),
-    @NamedQuery(name = "Application.findByText", query = "SELECT a FROM Application a WHERE a.text = :text")})
+    @NamedQuery(name = "Application.findByText", query = "SELECT a FROM Application a WHERE a.text = :text"),
+    @NamedQuery(name = "Application.findByClientId", query = "SELECT a FROM Application a WHERE a.clientId = :clientId")})
 public class Application implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_app")
     @Column(name = "ID")
     private Integer id;
     @Column(name = "CREATION_DATE")
@@ -53,6 +55,12 @@ public class Application implements Serializable {
 
     public Application(Integer id) {
         this.id = id;
+    }
+
+    public Application(Client clientId) {
+        this.stateId = new ApplicationState(1);
+        this.clientId = clientId;
+        this.creationDate = new Date();
     }
 
     public Integer getId() {

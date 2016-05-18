@@ -3,6 +3,7 @@ package session;
 import entities.Manager;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -26,8 +27,13 @@ public class ManagerFacade extends AbstractFacade<Manager> {
     }
     
     public Manager getManagerByPersonId(Object personId){
-        Query q = em.createNamedQuery("Manager.findByPersonId", Manager.class);
-        q.setParameter("personId", personId);
-        return (Manager)q.getSingleResult();
+        try{
+            Query q = em.createNamedQuery("Manager.findByPersonId", Manager.class);
+            q.setParameter("personId", personId);
+            return (Manager)q.getSingleResult();
+        }catch(NoResultException ex){
+            return null;
+        }
+        
     }
 }

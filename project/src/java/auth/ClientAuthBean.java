@@ -23,6 +23,10 @@ public class ClientAuthBean extends AuthBean implements Serializable{
     public ClientAuthBean() {
     }
 
+    public Client getClient() {
+        return client;
+    }
+
     @Override
     protected String authorize(Integer personId) {
         client = cf.getClientByPersonId(personId);

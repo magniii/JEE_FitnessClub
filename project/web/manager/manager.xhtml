@@ -1,17 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Manager index</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" type="text/css" href="/project/style/all.css"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+    </h:head>
+    <h:body>
+        <div id="manager-head">
+            Logged in as: 
+            <h:outputText value="#{managerIndexBean.mab.currPerson.login}"></h:outputText> 
+        </div>
+        <div id="manager-container">
+            <div id="manager-clients">
+                <div style="text-align: center; border: 2px solid black; border-bottom: 0px">
+                    Clients
+                </div>
+                <h:form>
+                    <h:dataTable value="#{brokerForManagerBean.clients}" var="client"
+                        styleClass="managerTable"
+                        headerClass="managerTableHeader"
+                        rowClasses="managerTableOddRow,managerTableEvenRow">
+                        <h:column>    				
+                            <f:facet name="header">ID</f:facet>    				
+                            #{client.id}
+                        </h:column>
+                        <h:column>    				
+                            <f:facet name="header">First Name</f:facet>    				
+                            #{client.personId.forname}
+                        </h:column>
+                        <h:column>    				
+                            <f:facet name="header">Last Name</f:facet>    				
+                            #{client.personId.surname}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">App status</f:facet>
+                            #{client.applicationList.get(0).getStateId().getAppText()}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Action</f:facet>
+                            <h:commandButton action="#{managerIndexBean.modifyAppStatus}" value="Proceed">
+                                <f:param name="modifyappstate" value="#{client.id}" />
+                            </h:commandButton>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+                <h:form rendered="#{managerIndexBean.renderAssignDoctor == true}" style="border: 2px solid black; margin-top: 10px; padding: 5px">
+                    For client ID
+                    <h:outputText value="#{managerIndexBean.tmpClientID}"/> <br/>
+                    Enter doctors ID:
+                    <h:inputText value="#{managerIndexBean.tmpDoctorID}"/>
+                    <h:commandButton action="#{managerIndexBean.assignDoctorToClient}" value="Assign" style="margin-left: 10px"/>
+                </h:form>
+                <h:form rendered="#{managerIndexBean.renderSendContract == true}" style="border: 2px solid black; margin-top: 10px; padding: 5px">
+                    For client ID
+                    <h:outputText value="#{managerIndexBean.tmpClientID}"/> <br/>
+                    <h:inputTextarea value="#{managerIndexBean.tmpText}">...</h:inputTextarea>
+                    <h:commandButton action="#{managerIndexBean.offerContractToClient}" value="Send" style="margin-left: 10px"/>
+                </h:form>
+            </div>
+            
+            <div id="manager-coaches">
+                <div style="text-align: center; border: 2px solid black; border-bottom: 0px">
+                    Coaches
+                </div>
+                <h:dataTable value="#{managerIndexBean.coaches}" var="coach"
+                    styleClass="managerTable"
+                    headerClass="managerTableHeader"
+                    rowClasses="managerTableOddRow,managerTableEvenRow">
+                    <h:column>    				
+                        <f:facet name="header">First Name</f:facet>    				
+                        #{coach.personId.forname}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Last Name</f:facet>    				
+                        #{coach.personId.surname}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{coach.id}
+                    </h:column>
+                 </h:dataTable>
+            </div>
+            
+            <div id="manager-doctors">
+                <div style="text-align: center; border: 2px solid black; border-bottom: 0px">
+                    Doctors
+                </div>
+                <h:dataTable value="#{managerIndexBean.doctors}" var="doctor"
+                    styleClass="managerTable"
+                    headerClass="managerTableHeader"
+                    rowClasses="managerTableOddRow,managerTableEvenRow">
+                    <h:column>    				
+                        <f:facet name="header">First Name</f:facet>    				
+                        #{doctor.personId.forname}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Last Name</f:facet>    				
+                        #{doctor.personId.surname}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{doctor.id}
+                    </h:column>
+                 </h:dataTable>
+            </div>
+        </div>
+        <div style="text-align: right">
+                <a href="newStaff.xhtml">New Staff</a>
+        </div>
+    </h:body>
 </html>

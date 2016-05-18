@@ -41,14 +41,14 @@ public class Client implements Serializable {
     @Column(name = "BIRTHDATE")
     @Temporal(TemporalType.DATE)
     private Date birthdate;
-    @OneToMany(mappedBy = "clientId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
     private List<Doctorclients> doctorclientsList;
-    @OneToMany(mappedBy = "clientId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
     private List<Coachclients> coachclientsList;
-    @OneToMany(mappedBy = "clientId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientId")
     private List<Application> applicationList;
     @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Person personId;
 
     public Client() {

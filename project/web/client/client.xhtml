@@ -10,17 +10,51 @@
     </head>
     <body>
         <div id="clientBlock"> 
-            <a text-align="center"> Your profile </a> <br/><br/>
-            <form> 
-                    First name: 
-                    <h:outputText value="#{ClientAuthBean.currPerson.forname}"/><br/><br/>
-                    Second name: 
-                    <h:outputText value="#{ClientAuthBean.currPerson.surname}" /><br/><br/>
-                    Birth date: 
-                    <h:outputText value="#{ClientAuthBean.client.birthdate}" /><br/><br/>
-                    Application state:
-                    <h:outputText value="TBD"/>
-            </form>
+            <a id="clienthead" style="text-align: center"> Your profile </a><br/><br/>
+            <h:form> 
+                First name: 
+                <h:outputText value="#{clientIndexBean.cab.currPerson.forname}"/><br/><br/>
+                Second name: 
+                <h:outputText value="#{clientIndexBean.cab.currPerson.surname}" /><br/><br/>
+                Application status:
+                <h:outputText value="#{clientIndexBean.currAppStateInfo}"/>
+            </h:form>
+            <h:form rendered="#{clientIndexBean.showText == true}">
+                <div style="border: 2px solid #ccc; margin-top: 5px; padding: 5px; background-color: #999" >
+                    <h:outputFormat value="#{clientIndexBean.tmpAppText}" />
+                </div>
+                <h:commandButton action="#{clientIndexBean.modifyAppState}" value="Accept" style="position: relative; left: 50%; width: 60px; margin: 10px 10px 10px -30px"/>
+            </h:form>
+            <h:form rendered="#{clientIndexBean.showForm == true}">
+                <h:inputTextarea value="#{clientIndexBean.tmpAppText}" style="border: 2px solid #ccc; margin-top: 5px; padding: 5px; background-color: #999" /> <br/>
+                <h:commandButton action="#{clientIndexBean.modifyAppState}" value="Submit" style="position: relative; left: 50%; width: 60px; margin: 10px 10px 10px -30px"/>
+            </h:form>
+            <h:form rendered="#{clientIndexBean.renderRequestCoach == true}" style="border: 2px solid black; margin-top: 10px; padding: 5px">
+                <h:dataTable value="#{clientIndexBean.coaches}" var="coach"
+                        styleClass="managerTable"
+                        headerClass="managerTableHeader"
+                        rowClasses="managerTableOddRow,managerTableEvenRow">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{coach.id}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">First Name</f:facet>    				
+                        #{coach.personId.forname}
+                    </h:column>
+                    <h:column>    				
+                        <f:facet name="header">Last Name</f:facet>    				
+                        #{coach.personId.surname}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Action</f:facet>
+                        <h:commandButton action="#{clientIndexBean.assignClientToCoach}" value="Send" >
+                            <f:param name="coachid" value="#{coach.id}" />
+                        </h:commandButton>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
         </div>
     </body>
 </html>

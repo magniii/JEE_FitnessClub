@@ -4,13 +4,14 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -20,13 +21,15 @@ import javax.validation.constraints.NotNull;
 @Table(name = "DOCTORCLIENTS")
 @NamedQueries({
     @NamedQuery(name = "Doctorclients.findAll", query = "SELECT d FROM Doctorclients d"),
-    @NamedQuery(name = "Doctorclients.findById", query = "SELECT d FROM Doctorclients d WHERE d.id = :id")})
+    @NamedQuery(name = "Doctorclients.findById", query = "SELECT d FROM Doctorclients d WHERE d.id = :id"),
+    @NamedQuery(name = "Doctorclients.findDoctorByClientId", query = "SELECT d.doctorId FROM Doctorclients d WHERE d.clientId.id = :clientId"),
+    @NamedQuery(name = "Doctorclients.findDoctorsClients", query = "SELECT d.clientId FROM Doctorclients d WHERE d.doctorId.id = :doctorId")})
 public class Doctorclients implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_doctorclients")
     @Column(name = "ID")
     private Integer id;
     @JoinColumn(name = "CLIENT_ID", referencedColumnName = "ID")

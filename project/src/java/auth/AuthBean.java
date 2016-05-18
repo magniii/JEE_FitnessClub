@@ -1,6 +1,5 @@
 package auth;
 
-import entities.Client;
 import entities.Person;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -8,10 +7,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import session.ClientFacade;
-import session.CoachFacade;
-import session.DoctorFacade;
-import session.ManagerFacade;
 import session.PersonFacade;
 
 /**

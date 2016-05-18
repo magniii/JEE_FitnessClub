@@ -3,6 +3,7 @@ package session;
 import entities.Coach;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -26,8 +27,12 @@ public class CoachFacade extends AbstractFacade<Coach> {
     }
     
     public Coach getCoachByPersonId(Object personId){
-        Query q = em.createNamedQuery("Coach.findByPersonId", Coach.class);
-        q.setParameter("personId", personId);
-        return (Coach)q.getSingleResult();
+        try {
+            Query q = em.createNamedQuery("Coach.findByPersonId", Coach.class);
+            q.setParameter("personId", personId);
+            return (Coach)q.getSingleResult();
+        }catch(NoResultException ex){
+            return null;
+        }
     }
 }

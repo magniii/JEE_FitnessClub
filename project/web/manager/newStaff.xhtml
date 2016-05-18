@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Adding new staff</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" type="text/css" href="/project/style/all.css"/>
+    </head>
+    <body>
+        <div id="container">
+            <input id="tab-manager" type="radio" name="tab-group" checked="checked"/>
+            <label for="tab-manager">Manager</label>
+            <input id="tab-doctor" type="radio" name="tab-group" />
+            <label for="tab-doctor">Doctor</label>
+            <input id="tab-coach" type="radio" name="tab-group" />
+            <label for="tab-coach">Coach</label>
+
+            <div id="content">
+                <div id="content-manager">
+                    <h:form> 
+                            Login:<br/>
+                            <h:inputText value="#{newStaffBean.login}" required="true" requiredMessage="Login cannot be empty"/><br/><br/>
+                            Password:<br/>  
+                            <h:inputSecret value="#{newStaffBean.password}" required="true" requiredMessage="Password cannot be empty"/><br/><br/>
+                            First name:<br/>
+                            <h:inputText value="#{newStaffBean.forname}" required="true" requiredMessage="First name cannot be empty"/><br/><br/>
+                            Second name:<br/>
+                            <h:inputText value="#{newStaffBean.surname}" required="true" requiredMessage="Second name cannot be empty"/><br/><br/>
+                            <h:commandButton action="#{newStaffBean.createManager}" value="Submit"/>
+                    </h:form>
+                </div>
+
+                <div id="content-doctor">
+                    <h:form> 
+                            Login:<br/>
+                            <h:inputText value="#{newStaffBean.login}" required="true" requiredMessage="Login cannot be empty"/><br/><br/>
+                            Password:<br/>  
+                            <h:inputSecret value="#{newStaffBean.password}" required="true" requiredMessage="Password cannot be empty"/><br/><br/>
+                            First name:<br/>
+                            <h:inputText value="#{newStaffBean.forname}" required="true" requiredMessage="First name cannot be empty"/><br/><br/>
+                            Second name:<br/>
+                            <h:inputText value="#{newStaffBean.surname}" required="true" requiredMessage="Second name cannot be empty"/><br/><br/>
+                            <h:commandButton action="#{newStaffBean.createDoctor}" value="Submit"/>
+                    </h:form>
+                </div>
+
+                <div id="content-coach">
+                    <h:form> 
+                            Login:<br/>
+                            <h:inputText value="#{newStaffBean.login}" required="true" requiredMessage="Login cannot be empty"/><br/><br/>
+                            Password:<br/>  
+                            <h:inputSecret value="#{newStaffBean.password}" required="true" requiredMessage="Password cannot be empty"/><br/><br/>
+                            First name:<br/>
+                            <h:inputText value="#{newStaffBean.forname}" required="true" requiredMessage="First name cannot be empty"/><br/><br/>
+                            Second name:<br/>
+                            <h:inputText value="#{newStaffBean.surname}" required="true" requiredMessage="Second name cannot be empty"/><br/><br/>
+                            <h:commandButton action="#{newStaffBean.createCoach}" value="Submit"/>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

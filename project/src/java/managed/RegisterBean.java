@@ -1,5 +1,6 @@
 package managed;
 
+import entities.Application;
 import entities.Client;
 import entities.Person;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import session.ApplicationFacade;
 import session.ClientFacade;
 import session.PersonFacade;
 
@@ -23,6 +25,8 @@ public class RegisterBean {
     PersonFacade pf;
     @EJB
     ClientFacade cf;
+    @EJB
+    ApplicationFacade af;
     
     private String login;
     private String password;
@@ -79,6 +83,8 @@ public class RegisterBean {
         Person p = new Person(forname, surname, login, password);
         c.setPersonId(p);
         p.setClientList(Arrays.asList(c));
+        Application a = new Application(c);
+        c.setApplicationList(Arrays.asList(a));
         cf.create(c);
         
         return "auth.xhtml?faces-redirect=true";

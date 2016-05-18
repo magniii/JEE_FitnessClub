@@ -34,9 +34,9 @@
                 <div id="content-manager">
                     <h:form>
                         Login:<br/> 
-                        <h:inputText value="#{managerAuthBean.login}" required="true" requiredMessage="Field cannot be empty"/><br/><br/>
+                        <h:inputText value="#{managerAuthBean.login}" required="true" requiredMessage="Login cannot be empty"/><br/><br/>
                         Password:<br/>  
-                        <h:inputSecret value="#{managerAuthBean.password}" required="true" requiredMessage="Field cannot be empty"/><br/><br/>
+                        <h:inputSecret value="#{managerAuthBean.password}" required="true" requiredMessage="Password cannot be empty"/><br/><br/>
                         <h:commandButton action="#{managerAuthBean.doAuth}" value="Submit"/>
                     </h:form>
                 </div>
@@ -44,9 +44,9 @@
                 <div id="content-doctor">
                     <h:form>
                         Login:<br/> 
-                        <h:inputText value="#{doctorAuthBean.login}" required="true" requiredMessage="Field cannot be empty"/><br/><br/>
+                        <h:inputText value="#{doctorAuthBean.login}" required="true" requiredMessage="Login cannot be empty"/><br/><br/>
                         Password:<br/>  
-                        <h:inputSecret value="#{doctorAuthBean.password}" required="true" requiredMessage="Field cannot be empty"/><br/><br/>
+                        <h:inputSecret value="#{doctorAuthBean.password}" required="true" requiredMessage="Password cannot be empty"/><br/><br/>
                         <h:commandButton action="#{doctorAuthBean.doAuth}" value="Submit"/>
                     </h:form>
                 </div>
@@ -54,15 +54,15 @@
                 <div id="content-coach">
                     <h:form>
                         Login:<br/> 
-                        <h:inputText value="#{coachAuthBean.login}" required="true" requiredMessage="Field cannot be empty"/><br/><br/>
+                        <h:inputText value="#{coachAuthBean.login}" required="true" requiredMessage="Login cannot be empty"/><br/><br/>
                         Password:<br/>  
-                        <h:inputSecret value="#{coachAuthBean.password}" required="true" requiredMessage="Field cannot be empty"/><br/><br/>
+                        <h:inputSecret value="#{coachAuthBean.password}" required="true" requiredMessage="Password cannot be empty"/><br/><br/>
                         <h:commandButton action="#{coachAuthBean.doAuth}" value="Submit"/>
                     </h:form>
                 </div>
             </div>
         </div>
-        <div id="regdiv" align="center"> 
+        <div id="regdiv"> 
             or <a href="register.xhtml">Register</a>
         </div>
     </h:body>

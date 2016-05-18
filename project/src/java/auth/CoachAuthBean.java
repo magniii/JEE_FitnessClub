@@ -23,6 +23,10 @@ public class CoachAuthBean extends AuthBean implements Serializable{
     public CoachAuthBean() {
     }
 
+    public Coach getCoach() {
+        return coach;
+    }
+
     @Override
     protected String authorize(Integer personId) {
         coach = cf.getCoachByPersonId(personId);

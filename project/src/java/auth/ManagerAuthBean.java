@@ -3,8 +3,6 @@ package auth;
 import entities.Manager;
 import java.io.Serializable;
 import javax.ejb.EJB;
-import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import session.ManagerFacade;
@@ -23,6 +21,10 @@ public class ManagerAuthBean extends AuthBean implements Serializable{
     Manager manager;
     
     public ManagerAuthBean() {
+    }
+
+    public Manager getManager() {
+        return manager;
     }
 
     @Override

@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Coach.findAll", query = "SELECT c FROM Coach c"),
     @NamedQuery(name = "Coach.findById", query = "SELECT c FROM Coach c WHERE c.id = :id"),
-    @NamedQuery(name = "Coach.findByPersonId", query = "SELECT c FROM Coach c WHERE c.personId = :personId")})
+    @NamedQuery(name = "Coach.findByPersonId", query = "SELECT c FROM Coach c WHERE c.personId.id = :personId")})
 public class Coach implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,10 +34,10 @@ public class Coach implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_coach")
     @Column(name = "ID")
     private Integer id;
-    @OneToMany(mappedBy = "coachId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "coachId")
     private List<Coachclients> coachclientsList;
     @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Person personId;
 
     public Coach() {

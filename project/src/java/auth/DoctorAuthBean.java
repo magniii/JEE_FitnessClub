@@ -24,6 +24,10 @@ public class DoctorAuthBean extends AuthBean implements Serializable{
     
     public DoctorAuthBean() {}
 
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
     @Override
     protected String authorize(Integer personId) {
         doctor = df.getDoctorByPersonId(personId);
